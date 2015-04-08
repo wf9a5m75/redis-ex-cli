@@ -1,0 +1,28 @@
+{
+  "name": "redix-ex-cli",
+  "version": "0.0.1",
+  "description": "Utility commands for redis",
+  "homepage": "https://github.com/wf9a5m75/redis-ex-cli",
+  "author": "Masashi Katsumata <wf9a5m75@gmail.com>",
+  "engines": {
+    "node": ">= 0.6.0"
+  },
+  "main": "./lib/redis-ex-cli",
+  "dependencies": {
+    "shell": "latest",
+    "redis": "latest",
+    "async": "latest",
+    "sprintf": "latest"
+  },
+  "keywords": ["cli", "console", "colors", "redis", "args", "argument"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wf9a5m75/redis-ex-cli.git"
+  },
+  "licenses": [
+    {
+      "type": "Apache License, Version 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  ]
+}
