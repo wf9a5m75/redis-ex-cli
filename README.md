@@ -62,13 +62,12 @@ Do you want to set values [N]/Y
 ```
 
 ##commands
-- quit
-- help
-- server :host
-- server :host :port
-- select :index
-- keys :regexp
-- keys export :regexp
+- [quit](#quit)
+- [server :host](#server-host)
+- [server :host :port](#server-host-port)
+- [select :index](#select-index)
+- [keys :regexp](#keys-regex)
+- [keys export :regexp](#keys-export-regexp)
 - [keys export :regexp :filename](#keys-export-regexp-filename)
 - [keys del :regexp](#keys-del-regexp)
 - [keys copy :regexp :newkey](#keys-copy-regexp-replace)
@@ -77,14 +76,54 @@ Do you want to set values [N]/Y
 - [keys hdel :regexp :field](#keys-hdel-regexp-field)
 - [keys hsearch :regexp :field :value](#keys-hsearch-regexp-field-value)
 
-### keys export :regexp :filename
-You may want to save paticular key-value pairs to a file.
+### quit
+Quit from redis-ex-cli
+
+### server :host
+Connect to the `:host` server with port 6379
 
 ```bash
-
+(disconnect) >> server localhost
+localhost >>
 ```
 
+### server :host :port
+Connect to the `:host` server with the specified `:port`
 
+```bash
+(disconnect) >> server myhost.com 123456
+myhost.com >>
+```
+
+### select :index
+Select the DB with having the specified zero-based numeric index. New connections always use DB 0
+
+```bash
+localhost >> select 1
+select DB index : 1
+```
+
+### keys :regexp
+`keys` lists up the keys matched with `:regexp`.
+
+```bash
+localhost >> keys logs:2015:0401:*
+```
+
+### keys export :regexp
+`keys export` generates the command sets that reproduce the keys matched with `:regexp`.
+
+```bash
+localhost >> keys export logs:2015:0401:*
+```
+
+### keys export :regexp :filename
+You may want to save paticular key-value pairs to a file.
+You need to specify `:filename` as absolute path.
+
+```bash
+localhost >> keys export logs:2015:0401:* /Users/me/Desktop/20150401.log
+```
 
 ### keys del :regexp
 `keys del` deletes the keys that matched with `:regexp`.
