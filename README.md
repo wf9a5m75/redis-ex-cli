@@ -91,3 +91,5 @@ localhost >> keys rename logs:2014:(.*?)_(.*) logs:$1:$2
 
 Do you want to rename [N]/Y 
 ```
+
+### keys hsearch :regexp :field :value
