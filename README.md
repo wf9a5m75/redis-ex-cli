@@ -73,9 +73,9 @@ Do you want to set values [N]/Y
 - keys del :regexp
 - keys copy :regexp :replace
 - keys rename :regexp :replace
-- keys hset :regexp :field :value
-- keys hdel :regexp :field
-- [keys hsearch :regexp :field :value](keys-hsearch-regexp-field-value)
+- [keys hset :regexp :field :value](#keys-hset-regexp-field-value)
+- [keys hdel :regexp :field](#keys-hdel-regexp-field)
+- [keys hsearch :regexp :field :value](#keys-hsearch-regexp-field-value)
 
 
 ### Regular Expression example
@@ -90,6 +90,20 @@ localhost >> keys rename logs:2014:(.*?)_(.*) logs:$1:$2
 [rename]logs:2014:1121_10-42-35 --> logs:2014:1121:10-42-35
 
 Do you want to rename [N]/Y 
+```
+
+### keys hset :regexp :field :value
+`keys hset` sets the `:value` to the `:field` that matched with `:regexp`
+
+```bash
+keys hset logs:2015:* isTest true
+```
+
+### keys hdel :regexp :field
+`keys hdel` deletes the `:field` from the keys that matched with `:regexp`.
+
+```bash
+keys hdel logs:* isTest
 ```
 
 ### keys hsearch :regexp :field :value
