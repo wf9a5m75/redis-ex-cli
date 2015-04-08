@@ -77,3 +77,17 @@ Do you want to set values [N]/Y
 - keys hdel :regexp :field
 - keys hsearch :regexp :field :value
 
+
+### Regular Expression example
+
+```bash
+localhost >> keys rename logs:2014:(.*?)_(.*) logs:$1:$2
+
+[rename]logs:2014:1120_12-40-00 --> logs:2014:1120:12-40-00
+[rename]logs:2014:1120_23-04-38 --> logs:2014:1120:23-04-38 
+[rename]logs:2014:1121_10-42-31 --> logs:2014:1121:10-42-31
+[rename]logs:2014:1121_10-42-34 --> logs:2014:1121:10-42-34
+[rename]logs:2014:1121_10-42-35 --> logs:2014:1121:10-42-35
+
+Do you want to rename [N]/Y 
+```
