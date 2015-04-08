@@ -96,8 +96,8 @@ Do you want to rename [N]/Y
 `keys hsearch` find the keys that have the `:field` contains `:value`.
 You can specify the `:value` with regular expression.
 
-For example, if you want to find the keys that the phone number stated with *310-*:
+For example, if you want to find the keys that the phone number stated with **310-**:
 
 ```bash
-localhost >>keys hsearch logs:2015:04* sendto 310\-.*
+localhost >>keys hsearch logs:2015:04* sendto ^310\-.*
 ```
