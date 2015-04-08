@@ -56,31 +56,6 @@ localhost >> keys logs:2014:1121:*
 logs:2014:1121:10-42-31
 logs:2014:1121:10-42-34
 logs:2014:1121:10-42-35
-
-localhost >> keys del logs:2014:1121:*
-[del] logs:2014:1121:10-42-31
-[del] logs:2014:1121:10-42-34
-[del] logs:2014:1121:10-42-35
-Do you want to delete [N]/Y
-
-localhost >> keys copy logs:2014:1121:* test:1121:
-[copy]logs:2014:1121:10-42-31 --> test:1121:10-42-31
-[copy]logs:2014:1121:23-44-01 --> test:1121:23-44-01
-[copy]logs:2014:1121:10-42-35 --> test:1121:10-42-35
-Do you want to copy [N]/Y 
-
-
-localhost >> keys rename test:1121:* key2:
-[rename]test:1121:10-42-31 --> key2:10-42-31
-[rename]test:1121:23-44-01 --> key2:23-44-01
-[rename]test:1121:10-42-35 --> key2:10-42-35
-Do you want to rename [N]/Y
-
-localhost >> keys hset key2:* isTest true
-[hset]key2:10-42-31
-[hset]key2:10-42-34
-[hset]key2:10-42-35
-Do you want to set values [N]/Y
 ```
 
 ## Commands
