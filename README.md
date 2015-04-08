@@ -60,7 +60,7 @@ Do you want to set values [N]/Y
 ##commands
 - quit
 - help
-- [server :host](server_host)        Connect a redis server.
+- server :host        Connect a redis server.
 - server :host :port  Connect a redis server.
 - select :index       Select the DB with having the specified zero-based numeric index. New connections always use DB 0
 - keys :regexp        List keys up with regular expression
