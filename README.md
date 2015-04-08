@@ -61,7 +61,31 @@ localhost >> keys hset key2:* isTest true
 Do you want to set values [N]/Y
 ```
 
-##commands
+## How to use this?
+
+At the first, you need to connect to your redis server.
+
+```bash
+$> redis-ex-cli
+
+(disconnect)>> server localhost
+
+localhost >>
+```
+
+Then select database index if you need.
+```bash
+localhost >> select 1
+```
+
+After that, list up the keys that you want.
+```bash
+localhost >> keys *
+```
+
+---
+
+## Commands
 - [quit](#quit)
 - [server :host](#server-host)
 - [server :host :port](#server-host-port)
