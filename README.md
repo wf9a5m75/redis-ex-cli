@@ -69,28 +69,50 @@ Do you want to set values [N]/Y
 - select :index
 - keys :regexp
 - keys export :regexp
-- keys export :regexp :filename
-- keys del :regexp
-- [keys copy :regexp :newkey](keys-copy-regexp-replace)
+- [keys export :regexp :filename](#keys-export-regexp-filename)
+- [keys del :regexp](#keys-del-regexp)
+- [keys copy :regexp :newkey](#keys-copy-regexp-replace)
 - [keys rename :regexp :replace](#keys-rename-regexp-replace)
 - [keys hset :regexp :field :value](#keys-hset-regexp-field-value)
 - [keys hdel :regexp :field](#keys-hdel-regexp-field)
 - [keys hsearch :regexp :field :value](#keys-hsearch-regexp-field-value)
 
+### keys export :regexp :filename
+You may want to save paticular key-value pairs to a file.
+
+```bash
+
+```
+
+
+
+### keys del :regexp
+`keys del` deletes the keys that matched with `:regexp`.
+
+```bash
+localhost >> keys del logs:2015:04*
+
+[del]logs:2015:0401:06-59-46
+[del]logs:2015:0401:07-01-02
+[del]logs:2015:0401:07-11-43
+[del]logs:2015:0401:07-12-36
+
+Do you want to delete [N]/Y
+```
 
 ### keys copy :regexp :newkey
 `keys copy` copies the keys that matched with `:regexp` to `:newkey`
 You can use regular expression to the `:newkey` value with grouping.
 
 ```bash
-localhost >> keys rename logs:2015:04* logs:test:
+localhost >> keys copy logs:2015:04* logs:test:
 
-[rename]logs:2015:0401:06-59-46 --> logs:test:01:06-59-46
-[rename]logs:2015:0406:07-09-22 --> logs:test:06:07-09-22
-[rename]logs:2015:0401:07-11-43 --> logs:test:01:07-11-43
-[rename]logs:2015:0401:07-12-36 --> logs:test:01:07-12-36
+[copy]logs:2015:0401:06-59-46 --> logs:test:01:06-59-46
+[copy]logs:2015:0406:07-09-22 --> logs:test:06:07-09-22
+[copy]logs:2015:0401:07-11-43 --> logs:test:01:07-11-43
+[copy]logs:2015:0401:07-12-36 --> logs:test:01:07-12-36
 
-Do you want to rename [N]/Y
+Do you want to copy [N]/Y
 ```
 
 ### keys rename :regexp :replace
