@@ -83,8 +83,6 @@ localhost >> keys hset key2:* isTest true
 Do you want to set values [N]/Y
 ```
 
----
-
 ## Commands
 - [quit](#quit)
 - [server :host](#server-host)
