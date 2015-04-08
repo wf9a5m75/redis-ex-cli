@@ -71,23 +71,38 @@ Do you want to set values [N]/Y
 - keys export :regexp
 - keys export :regexp :filename
 - keys del :regexp
-- keys copy :regexp :replace
-- keys rename :regexp :replace
+- [keys copy :regexp :newkey](keys-copy-regexp-replace)
+- [keys rename :regexp :replace](#keys-rename-regexp-replace)
 - [keys hset :regexp :field :value](#keys-hset-regexp-field-value)
 - [keys hdel :regexp :field](#keys-hdel-regexp-field)
 - [keys hsearch :regexp :field :value](#keys-hsearch-regexp-field-value)
 
 
-### Regular Expression example
+### keys copy :regexp :newkey
+`keys copy` copies the keys that matched with `:regexp` to `:newkey`
+You can use regular expression to the `:newkey` value with grouping.
 
 ```bash
-localhost >> keys rename logs:2014:(.*?)_(.*) logs:$1:$2
+localhost >> keys rename logs:2015:04* logs:test:
 
-[rename]logs:2014:1120_12-40-00 --> logs:2014:1120:12-40-00
-[rename]logs:2014:1120_23-04-38 --> logs:2014:1120:23-04-38 
-[rename]logs:2014:1121_10-42-31 --> logs:2014:1121:10-42-31
-[rename]logs:2014:1121_10-42-34 --> logs:2014:1121:10-42-34
-[rename]logs:2014:1121_10-42-35 --> logs:2014:1121:10-42-35
+[rename]logs:2015:0401:06-59-46 --> logs:test:01:06-59-46
+[rename]logs:2015:0406:07-09-22 --> logs:test:06:07-09-22
+[rename]logs:2015:0401:07-11-43 --> logs:test:01:07-11-43
+[rename]logs:2015:0401:07-12-36 --> logs:test:01:07-12-36
+
+Do you want to rename [N]/Y
+```
+
+### keys rename :regexp :replace
+`keys rename` renames the keys that matched with `:regexp` to `:replace`
+You can use regular expression to the `:replace` value with grouping.
+
+```bash
+localhost >> keys rename logs:2014:04(.*) logs:2015:05$1:test
+
+[rename]logs:2014:0401:06-59-46 --> logs:2015:0501:06-59-46:test
+[rename]logs:2014:0401:07-11-43 --> logs:2015:0501:07-11-43:test
+[rename]logs:2014:0401:07-12-36 --> logs:2015:0501:07-12-36:test
 
 Do you want to rename [N]/Y 
 ```
@@ -96,14 +111,28 @@ Do you want to rename [N]/Y
 `keys hset` sets the `:value` to the `:field` that matched with `:regexp`
 
 ```bash
-keys hset logs:2015:* isTest true
+localhost >>keys hset logs:2015:04* isTest true
+
+[hset]logs:2015:0401:06-59-46
+[hset]logs:2015:0401:07-01-02
+[hset]logs:2015:0401:07-11-43
+[hset]logs:2015:0401:07-12-36
+
+Do you want to set values [N]/Y 
 ```
 
 ### keys hdel :regexp :field
 `keys hdel` deletes the `:field` from the keys that matched with `:regexp`.
 
 ```bash
-keys hdel logs:* isTest
+localhost >>keys hdel logs:* isTest
+
+[hdel]logs:2015:0401:06-59-46
+[hdel]logs:2015:0401:07-01-02
+[hdel]logs:2015:0401:07-11-43
+[hdel]logs:2015:0401:07-12-36
+
+Do you want to delete [N]/Y 
 ```
 
 ### keys hsearch :regexp :field :value
@@ -114,4 +143,14 @@ For example, if you want to find the keys that the phone number stated with **31
 
 ```bash
 localhost >>keys hsearch logs:2015:04* sendto ^310\-.*
+
+logs:2015:0401:13-45-17
+logs:2015:0401:15-02-59
+logs:2015:0402:14-09-03
+logs:2015:0404:15-20-56
+logs:2015:0404:17-41-55
+logs:2015:0404:17-56-05
+logs:2015:0405:11-32-43
+logs:2015:0405:14-50-55
+logs:2015:0405:14-54-07
 ```
