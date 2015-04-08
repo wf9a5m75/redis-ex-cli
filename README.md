@@ -1,13 +1,17 @@
 # redis-ex-cli
 
-Redix-ex-cli helps you to manipulate keys of Redis Database through command-line-interface.
+Redix-ex-cli is a utility command which manipulates multiple keys of Redis Database through command-line-interface.
+
+You can pick up the keys with regular expression, rename / copy / delete them, or export the keys.
+Also set / delete one hash value for multiple keys at one time.
+
 
 ## Install
 ```bash
 $> npm -g install redis-ex-cli
 ```
 
-## Usage
+## Quick Example
 ```bash
 $> redis-ex-cli
 (disconnect) >> server localhost
