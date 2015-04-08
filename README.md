@@ -11,6 +11,28 @@ Also set / delete one hash value for multiple keys at one time.
 $> npm -g install redis-ex-cli
 ```
 
+## How to use this?
+
+At the first, you need to connect to your redis server.
+
+```bash
+$> redis-ex-cli
+
+(disconnect)>> server localhost
+
+localhost >>
+```
+
+Then select database index if you need.
+```bash
+localhost >> select 1
+```
+
+After that, list up the keys that you want.
+```bash
+localhost >> keys *
+```
+
 ## Quick Example
 ```bash
 $> redis-ex-cli
@@ -59,28 +81,6 @@ localhost >> keys hset key2:* isTest true
 [hset]key2:10-42-34
 [hset]key2:10-42-35
 Do you want to set values [N]/Y
-```
-
-## How to use this?
-
-At the first, you need to connect to your redis server.
-
-```bash
-$> redis-ex-cli
-
-(disconnect)>> server localhost
-
-localhost >>
-```
-
-Then select database index if you need.
-```bash
-localhost >> select 1
-```
-
-After that, list up the keys that you want.
-```bash
-localhost >> keys *
 ```
 
 ---
