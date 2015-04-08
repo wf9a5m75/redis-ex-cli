@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 var shell = require('shell'),
     app = new shell({chdir: __dirname });
 
