@@ -60,16 +60,16 @@ Do you want to set values [N]/Y
 ##commands
 - quit
 - help
-- server :host        Connect a redis server.
-- server :host :port  Connect a redis server.
-- select :index       Select the DB with having the specified zero-based numeric index. New connections always use DB 0
-- keys :regexp        List keys up with regular expression
-- keys export :regexp Export particular key-data.
-- keys export :regexp :filename         Export particular key-data into the file.
-- keys del :regexp    Delete multiple keys
-- keys copy :regexp :replace      copy multiple keys
-- keys rename :regexp :replace        rename multiple keys
-- keys hset :regexp :field :value           set the value for multiple keys
-- keys hdel :regexp :field    delete the field from multiple keys
-- keys hsearch :regexp :field :value              Find keys that contains the field and the value
+- server :host
+- server :host :port
+- select :index
+- keys :regexp
+- keys export :regexp
+- keys export :regexp :filename
+- keys del :regexp
+- keys copy :regexp :replace
+- keys rename :regexp :replace
+- keys hset :regexp :field :value
+- keys hdel :regexp :field
+- keys hsearch :regexp :field :value
 
