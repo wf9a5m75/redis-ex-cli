@@ -9,7 +9,7 @@ var shell = require('shell'),
 app.configure(function() {
   app.use(function(request, response, next) {
     app.redis = null;
-    app.useScan = false;
+    app.set('useScan', false);
     next();
   });
   app.use(shell.history({
