@@ -68,6 +68,7 @@ Do you want to delete [N]/Y
 - [keys :regexp](#keys-regex)
 - [keys export :regexp](#keys-export-regexp)
 - [keys export :regexp :filename](#keys-export-regexp-filename)
+- [keys import :filename](#keys-import-filename)
 - [keys del :regexp](#keys-del-regexp)
 - [keys copy :regexp :newkey](#keys-copy-regexp-replace)
 - [keys rename :regexp :replace](#keys-rename-regexp-replace)
@@ -127,10 +128,16 @@ localhost >> keys export logs:2015:0404:1[7-8].*
 
 ### keys export :regexp :filename
 You may want to save paticular key-value pairs to a file.
-You need to specify `:filename` as absolute path.
 
 ```bash
-localhost >> keys export logs:2015:0404:1[7-8].* /Users/me/Desktop/20150404-from17to18.log
+localhost >> keys export logs:2015:0404:1[7-8].* 20150404-from17to18.log
+```
+
+### keys import :filename
+`keys import` loads the `:filename`, then executes the command lines one by one.
+
+```bash
+localhost >> keys import 20150404-from17to18.log
 ```
 
 ### keys del :regexp
@@ -179,7 +186,7 @@ localhost >> keys rename logs:2014:04(.*) logs:2015:05$1:test
 [rename]logs:2014:0401:07-11-43 --> logs:2015:0501:07-11-43:test
 [rename]logs:2014:0401:07-12-36 --> logs:2015:0501:07-12-36:test
 
-Do you want to rename [N]/Y 
+Do you want to rename [N]/Y
 ```
 
 ### keys hset :regexp :field :value
@@ -193,7 +200,7 @@ localhost >>keys hset logs:2015:04* isTest true
 [hset]logs:2015:0401:07-11-43
 [hset]logs:2015:0401:07-12-36
 
-Do you want to set values [N]/Y 
+Do you want to set values [N]/Y
 ```
 
 ### keys hdel :regexp :field
@@ -207,7 +214,7 @@ localhost >>keys hdel logs:* isTest
 [hdel]logs:2015:0401:07-11-43
 [hdel]logs:2015:0401:07-12-36
 
-Do you want to delete [N]/Y 
+Do you want to delete [N]/Y
 ```
 
 ### keys hsearch :regexp :field :value
