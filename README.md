@@ -70,7 +70,7 @@ Do you want to delete [N]/Y
 - [keys export :regexp :filename](#keys-export-regexp-filename)
 - [keys import :filename](#keys-import-filename)
 - [keys del :regexp](#keys-del-regexp)
-- [keys copy :regexp :newkey](#keys-copy-regexp-replace)
+- [keys copy :regexp :newkey](#keys-copy-regexp-newkey)
 - [keys rename :regexp :replace](#keys-rename-regexp-replace)
 - [keys hset :regexp :field :value](#keys-hset-regexp-field-value)
 - [keys hdel :regexp :field](#keys-hdel-regexp-field)
