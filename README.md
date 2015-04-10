@@ -111,14 +111,23 @@ select DB index : 1
 `keys` lists up the keys matched with `:regexp`.
 
 ```bash
-localhost >> keys logs:2015:0401:*
+localhost >> keys logs:2015:0404:1[7-8].*
+logs:2015:0404:17-40-42
+logs:2015:0404:17-41-55
+logs:2015:0404:17-56-05
+logs:2015:0404:18-01-36
+logs:2015:0404:18-06-26
+logs:2015:0404:18-11-17
+logs:2015:0404:18-12-25
+logs:2015:0404:18-13-17
+logs:2015:0404:18-15-07
 ```
 
 ### keys export :regexp
 `keys export` generates the command sets that reproduce the keys matched with `:regexp`.
 
 ```bash
-localhost >> keys export logs:2015:0401:*
+localhost >> keys export logs:2015:0404:1[7-8].*
 ```
 
 ### keys export :regexp :filename
@@ -126,19 +135,25 @@ You may want to save paticular key-value pairs to a file.
 You need to specify `:filename` as absolute path.
 
 ```bash
-localhost >> keys export logs:2015:0401:* /Users/me/Desktop/20150401.log
+localhost >> keys export logs:2015:0404:1[7-8].* /Users/me/Desktop/20150404-from17to18.log
 ```
 
 ### keys del :regexp
 `keys del` deletes the keys that matched with `:regexp`.
 
 ```bash
-localhost >> keys del logs:2015:04*
+localhost >> keys del logs:2015:0404:1[7-8].*
 
-[del]logs:2015:0401:06-59-46
-[del]logs:2015:0401:07-01-02
-[del]logs:2015:0401:07-11-43
-[del]logs:2015:0401:07-12-36
+
+[del]logs:2015:0404:17-40-42
+[del]logs:2015:0404:17-41-55
+[del]logs:2015:0404:17-56-05
+[del]logs:2015:0404:18-01-36
+[del]logs:2015:0404:18-06-26
+[del]logs:2015:0404:18-11-17
+[del]logs:2015:0404:18-12-25
+[del]logs:2015:0404:18-13-17
+[del]logs:2015:0404:18-15-07
 
 Do you want to delete [N]/Y
 ```
