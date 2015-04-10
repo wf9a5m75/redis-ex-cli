@@ -56,6 +56,13 @@ localhost >> keys logs:2014:1121:*
 logs:2014:1121:10-42-31
 logs:2014:1121:10-42-34
 logs:2014:1121:10-42-35
+
+localhost >> keys del logs:2014:1121:*
+[del]logs:2014:1121:10-42-31
+[del]logs:2014:1121:10-42-34
+[del]logs:2014:1121:10-42-35
+
+Do you want to delete [N]/Y
 ```
 
 ## Commands
