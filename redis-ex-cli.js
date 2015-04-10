@@ -3,6 +3,8 @@
 var shell = require('shell'),
     app = new shell({chdir: __dirname });
 
+process.chdir(process.env.PWD);
+
 //----------------------------
 // Configureation for shell
 //----------------------------
@@ -38,6 +40,7 @@ var routes = {
   'server' : require('./includes/server'),
   'keys_regexp' : require('./includes/keys_regexp'),
   'export_data' : require('./includes/export_data'),
+  'import_data' : require('./includes/import_data'),
   'delete_keys' : require('./includes/delete_keys'),
   'copy_keys' : require('./includes/copy_keys'),
   'rename_keys' : require('./includes/rename_keys'),
@@ -52,11 +55,12 @@ app.cmd('select :index', 'Select the DB with having the specified zero-based num
 app.cmd('keys :regexp', 'List keys up with regular expression', routes.keys_regexp);
 app.cmd('keys export :regexp', 'Export particular key-data.', routes.export_data);
 app.cmd('keys export :regexp :filename', 'Export particular key-data into the file.', routes.export_data);
+app.cmd('keys import :filename', 'Import redis commands file that exported with keys-export command.', routes.import_data);
 app.cmd('keys del :regexp', 'Delete multiple keys', routes.delete_keys);
-app.cmd('keys copy :regexp :replace', 'copy multiple keys', routes.copy_keys);
-app.cmd('keys rename :regexp :replace', 'rename multiple keys', routes.rename_keys);
-app.cmd('keys hset :regexp :field :value', 'set the value for multiple keys', routes.hset);
-app.cmd('keys hdel :regexp :field', 'delete the field from multiple keys', routes.hdel);
+app.cmd('keys copy :regexp :replace', 'Copy multiple keys', routes.copy_keys);
+app.cmd('keys rename :regexp :newkey', 'Rename multiple keys', routes.rename_keys);
+app.cmd('keys hset :regexp :field :value', 'Set the value for multiple keys', routes.hset);
+app.cmd('keys hdel :regexp :field', 'Delete the field from multiple keys', routes.hdel);
 app.cmd('keys hsearch :regexp :field :value', 'Find keys that contains the field and the value', routes.hsearch);
 
 app.on('quit', function() {
