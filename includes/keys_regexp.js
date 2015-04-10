@@ -3,15 +3,15 @@ module.exports = function(request, response, next) {
       async = require('async'),
       redis = app.settings.redis,
       regexp = null;
-  
+
   if (redis == null) {
     response.red('You need connect to the redis server.');
     response.ln();
     response.prompt();
     return;
   }
-  
-  
+
+
   async.waterfall([
     //-----------------------------------
     // 1. Create a regular expression
@@ -24,7 +24,7 @@ module.exports = function(request, response, next) {
       }
       callback(null);
     },
-    
+
     //-------------------------------------------
     // 2. Create pattern for redis-keys command.
     //-------------------------------------------
@@ -32,21 +32,41 @@ module.exports = function(request, response, next) {
       var pattern = request.params.regexp;
       pattern = pattern.replace(/^\//, '');
       pattern = pattern.replace(/\/[gim]*$/, '');
-      
+
       pattern = pattern.replace(/[^A-Za-z0-9\_\-\:].*$/, '*');
       if (pattern == null || pattern === "") {
         pattern = '';
       }
       callback(null, pattern);
     },
-    
+
     //-----------------------------------
     // 3. pick up keys.
     //-----------------------------------
     function (pattern, callback) {
-      redis.keys(pattern, callback);
+      if (!app.set('useScan')) {
+        redis.keys(pattern, callback);
+        return;
+      }
+
+      var keysBuffer = [];
+      // scan command for redis v2.8 and above.
+      var loopCallback = function(error, results) {
+        if (error) {
+          callback(error, keysBuffer);
+        } else {
+          keysBuffer = keysBuffer.concat(results[1]);
+          if (results[0] != 0) {
+            redis.scan(results[0], loopCallback);
+          } else {
+            callback(null, keysBuffer);
+          }
+        }
+      };
+
+      redis.scan(0, loopCallback);
     },
-    
+
     //-----------------------------------
     // 4. filter the results.
     //-----------------------------------
@@ -61,7 +81,7 @@ module.exports = function(request, response, next) {
         callback(null, results);
       });
     }
-    
+
   ], function(err, results) {
     if (!err) {
       results = results.sort();
