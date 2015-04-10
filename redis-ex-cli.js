@@ -9,6 +9,7 @@ var shell = require('shell'),
 app.configure(function() {
   app.use(function(request, response, next) {
     app.redis = null;
+    app.listupCmd = null;
     next();
   });
   app.use(shell.history({
@@ -24,8 +25,8 @@ app.configure(function() {
     shell: app,
     introduction: true
   }));
-  
-  app.set('prompt', '(disconnect) >>');
+
+  app.set('prompt', '(disconnect) >> ');
 });
 
 
