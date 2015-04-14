@@ -35,33 +35,25 @@ app.configure(function() {
 //----------------------------
 // Routing
 //----------------------------
-var routes = {
-  'select' : require('./includes/select'),
-  'server' : require('./includes/server'),
-  'keys_regexp' : require('./includes/keys_regexp'),
-  'export_data' : require('./includes/export_data'),
-  'import_data' : require('./includes/import_data'),
-  'delete_keys' : require('./includes/delete_keys'),
-  'copy_keys' : require('./includes/copy_keys'),
-  'rename_keys' : require('./includes/rename_keys'),
-  'hset' : require('./includes/hset'),
-  'hdel' : require('./includes/hdel'),
-  'hsearch' : require('./includes/hsearch')
-};
+var shell_interface = require('./includes/shell_interface');
+var serverCmd = require('./includes/server.js');
 
-app.cmd('server :host', 'Connect a redis server.', routes.server);
-app.cmd('server :host :port', 'Connect a redis server.', routes.server);
-app.cmd('select :index', 'Select the DB with having the specified zero-based numeric index. New connections always use DB 0', routes.select);
-app.cmd('keys :regexp', 'List keys up with regular expression', routes.keys_regexp);
-app.cmd('keys export :regexp', 'Export particular key-data.', routes.export_data);
-app.cmd('keys export :regexp :filename', 'Export particular key-data into the file.', routes.export_data);
-app.cmd('keys import :filename', 'Import redis commands file that exported with keys-export command.', routes.import_data);
-app.cmd('keys del :regexp', 'Delete multiple keys', routes.delete_keys);
-app.cmd('keys copy :regexp :replace', 'Copy multiple keys', routes.copy_keys);
-app.cmd('keys rename :regexp :newkey', 'Rename multiple keys', routes.rename_keys);
-app.cmd('keys hset :regexp :field :value', 'Set the value for multiple keys', routes.hset);
-app.cmd('keys hdel :regexp :field', 'Delete the field from multiple keys', routes.hdel);
-app.cmd('keys hsearch :regexp :field :value', 'Find keys that contains the field and the value', routes.hsearch);
+app.cmd('server :host', 'Connect a redis server.', serverCmd);
+app.cmd('server :host :port', 'Connect a redis server.', serverCmd);
+app.cmd('select :index', 'Select the DB with having the specified zero-based numeric index. New connections always use DB 0', shell_interface);
+app.cmd('keys :regexp', 'List keys up with regular expression', shell_interface);
+app.cmd('keys export :regexp', 'Export particular key-data.', shell_interface);
+app.cmd('keys export :regexp :filename', 'Export particular key-data into the file.', shell_interface);
+app.cmd('keys import :filename', 'Import redis commands file that exported with keys-export command.', shell_interface);
+app.cmd('keys del :regexp', 'Delete multiple keys', shell_interface);
+app.cmd('keys copy :regexp :replace', 'Copy multiple keys', shell_interface);
+app.cmd('keys rename :regexp :newkey', 'Rename multiple keys', shell_interface);
+app.cmd('keys hget :regexp :field', 'Display a value table of :field', shell_interface);
+app.cmd('keys hset :regexp :field :value', 'Set the value for multiple keys', shell_interface);
+app.cmd('keys hdel :regexp :field', 'Delete the field from multiple keys', shell_interface);
+app.cmd('keys hsearch :regexp :field :value', 'Find keys that contains the field and the value', shell_interface);
+app.cmd(':command1 | :command2', shell_interface);
+app.cmd(':command1', shell_interface);
 
 app.on('quit', function() {
   process.exit();

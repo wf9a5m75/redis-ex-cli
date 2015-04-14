@@ -87,6 +87,10 @@ module.exports = function(request, response, next) {
     }
 
   ], function(err, results) {
+    if (typeof next === "function") {
+      next(err, results);
+      return;
+    }
     if (err) {
       response.red(err);
       response.ln();

@@ -4,12 +4,12 @@ module.exports = function(request, response, next) {
       app = request.shell,
       redis = app.settings.redis;
   var fs = require('fs');
-  
+
   async.waterfall([
     function (callback) {
       require('./keys_regexp')(request, callback);
     },
-    
+
     function(keys, callback) {
       async.reduce(keys, [], function(memo, key, cback) {
         redis.hgetall(key, function(err, data) {
@@ -19,7 +19,7 @@ module.exports = function(request, response, next) {
           }
           var fields = Object.keys(data),
               value;
-          
+
           fields.forEach(function(field) {
             value = data[field];
             if (!value) {
@@ -33,18 +33,22 @@ module.exports = function(request, response, next) {
         });
       }, callback);
     },
-    
+
     function(results, callback) {
       if (request.params.filename) {
         fs.writeFile(request.params.filename, results.join("\n"), function(err) {
           callback(err, results);
-        }); 
+        });
       } else {
         callback(null, results);
       }
     }
-    
+
   ], function(err, results) {
+    if (typeof next === "function") {
+      next(err, results);
+      return;
+    }
     if (err) {
       response.red(err);
       response.ln();
@@ -55,7 +59,7 @@ module.exports = function(request, response, next) {
         });
       }
     }
-    
+
     response.prompt();
   });
 };

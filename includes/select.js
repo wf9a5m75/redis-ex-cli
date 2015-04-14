@@ -1,20 +1,18 @@
-module.exports = function(request, response, next) {
-  var async = require('async'),
-      app = request.shell,
-      redis = app.settings.redis;
-  var fs = require('fs');
- 
-  async.waterfall([
-    function(callback) {
-      response.println("select DB index : " + request.params.index);
-      redis.select(request.params.index, callback);
-    }
-  ], function(err) {
+/**
+ * Select database index
+ *
+ * request {Object}
+ * request.redis {Object}  Instance of redis
+ * request.params.index {Number}  Database index
+ * next {Function} callback
+ */
+module.exports = function(request, next) {
+  request.redis.select(request.params.index, function(err) {
     if (err) {
-      response.red(err);
-      response.ln();
+      next(err);
+      return;
     }
-    
-    response.prompt();
+
+    next(null, "select DB index : " + request.params.index);
   });
 };

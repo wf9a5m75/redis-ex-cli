@@ -1,16 +1,16 @@
-module.exports = function(request, response, next) {
+/**
+ * List up keys that matched with regular expressions
+ *
+ * request {Object}
+ * request.redis {Object}  Instance of redis
+ * request.shell {Object}  Instance of shell
+ * next {Function} callback
+ */
+module.exports = function(request, next) {
+  var async = require('async');
   var app = request.shell,
-      async = require('async'),
-      redis = app.settings.redis,
+      redis = request.redis,
       regexp = null;
-
-  if (redis == null) {
-    response.red('You need connect to the redis server.');
-    response.ln();
-    response.prompt();
-    return;
-  }
-
 
   async.waterfall([
     //-----------------------------------
@@ -44,7 +44,7 @@ module.exports = function(request, response, next) {
     // 3. pick up keys.
     //-----------------------------------
     function (pattern, callback) {
-      if (!app.set('useScan')) {
+      if (!request.useScan) {
         redis.keys(pattern, callback);
         return;
       }
@@ -86,19 +86,6 @@ module.exports = function(request, response, next) {
     if (!err) {
       results = results.sort();
     }
-    if (!next) {
-      response(err, results);
-      return;
-    }
-    if (err) {
-      response.red("[ERROR]");
-      response.red(err);
-      response.ln();
-    } else {
-      results.forEach(function(key) {
-        response.println(key);
-      });
-    }
-    response.prompt();
+    next(err, results);
   });
 };

@@ -4,12 +4,12 @@ module.exports = function(request, response, next) {
       app = request.shell,
       redis = app.settings.redis;
   var fs = require('fs');
-  
+
   async.waterfall([
     function (callback) {
       require('./keys_regexp')(request, callback);
     },
-    
+
     function(keys, callback) {
       var regexp = new RegExp(request.params.value, "i");
       async.filter(keys, function(key, cback) {
@@ -21,19 +21,20 @@ module.exports = function(request, response, next) {
       });
     },
   ], function(err, results) {
+    if (typeof next === "function") {
+      next(err, results);
+      return;
+    }
     if (err) {
       response.red(err);
       response.ln();
     } else {
-      
       response.ln();
       results = results.sort();
       for (var i = 0; i < results.length; i++) {
         response.println(results[i]);
       }
     }
-    
-    
     response.prompt();
   });
 };
