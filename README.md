@@ -8,7 +8,7 @@ Also set / delete one hash value for multiple keys at one time.
 
 ## Install
 ```bash
-$> npm -g install redis-ex-cli
+$> npm -g install https://github.com/wf9a5m75/redis-ex-cli
 ```
 
 ## How to use this?
