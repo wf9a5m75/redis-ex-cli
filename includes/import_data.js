@@ -5,7 +5,8 @@ module.exports = function(request, response, next) {
       app = request.shell,
       redis = app.settings.redis;
   var fs = require('fs');
-  var commands = require('redis/lib/commands');
+  var commands = require('redis/lib/commands'),
+      ProgressBar = require('progress');
 
   async.waterfall([
     function (callback) {
@@ -39,6 +40,12 @@ module.exports = function(request, response, next) {
     },
 
     function(lines, callback) {
+      var bar = new ProgressBar(' importing [:bar] :percent(:current/:total) :etas', {
+        complete: '=',
+        incomplete: ' ',
+        width: 40,
+        total: lines.length
+      });
 
       async.map(lines, function(line, cback) {
         // (?:\"?\s\")
@@ -68,6 +75,7 @@ module.exports = function(request, response, next) {
           return column.replace(/^\"/, "").replace(/([^\\])\"$/g, "$1");
         });
 
+        bar.tick();
         cback(null, columns);
       }, function(error, results) {
         if (error) {

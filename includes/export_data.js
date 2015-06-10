@@ -3,17 +3,26 @@ module.exports = function(request, response, next) {
       sprintf = require('sprintf').sprintf,
       app = request.shell,
       redis = app.settings.redis;
-  var fs = require('fs');
-  
+  var fs = require('fs'),
+      ProgressBar = require('progress'),
+      progress;
+    
   async.waterfall([
     function (callback) {
       require('./keys_regexp')(request, callback);
     },
     
     function(keys, callback) {
+      bar = new ProgressBar(' exporting [:bar] :percent(:current/:total) :etas', {
+        complete: '=',
+        incomplete: ' ',
+        width: 40,
+        total: keys.length
+      });
       async.reduce(keys, [], function(memo, key, cback) {
         redis.hgetall(key, function(err, data) {
           if (err) {
+            bar.tick();
             cback(null, memo);
             return;
           }
@@ -29,6 +38,7 @@ module.exports = function(request, response, next) {
             }
             memo.push(sprintf('HSET %s "%s" "%s"', key, field, value));
           });
+          bar.tick();
           cback(null, memo);
         });
       }, callback);

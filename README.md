@@ -132,6 +132,8 @@ You may want to save paticular key-value pairs to a file.
 ```bash
 localhost >> keys export logs:2015:0404:1[7-8].* 20150404-from17to18.log
 ```
+![](https://googledrive.com/host/0B1ECfqTCcLE8flZ3R18yaDRKQUdBYjQ5RHhNeHpCRHNFSDdscFZ6ek4xZzRGbDZhM3R3elE/export.gif)
+
 
 ### keys import :filename
 `keys import` loads the `:filename`, then executes the command lines one by one.
@@ -139,6 +141,7 @@ localhost >> keys export logs:2015:0404:1[7-8].* 20150404-from17to18.log
 ```bash
 localhost >> keys import 20150404-from17to18.log
 ```
+![](https://googledrive.com/host/0B1ECfqTCcLE8flZ3R18yaDRKQUdBYjQ5RHhNeHpCRHNFSDdscFZ6ek4xZzRGbDZhM3R3elE/import.gif)
 
 ### keys del :regexp
 `keys del` deletes the keys that matched with `:regexp`.
