@@ -35,7 +35,7 @@ app.configure(function() {
 //----------------------------
 // Routing
 //----------------------------
-var shell_interface = require('./includes/shell_interface');
+var shell_interface = require('./lib/shell_interface');
 var serverCmd = require('./includes/server.js');
 
 app.cmd('server :host', 'Connect a redis server.', serverCmd);
