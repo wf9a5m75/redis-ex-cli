@@ -16,7 +16,7 @@ module.exports = function(request, response, next) {
       async.map(keys, function(key, cback) {
         cback(null, {
           'orgKey' : key,
-          'newKey' : key.replace(regexp, request.params.replace)
+          'newKey' : key.replace(regexp, request.params.newkey)
         });
       }, callback);
     },
